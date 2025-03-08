@@ -83,3 +83,54 @@ for doc in chunked_documents:
     doc["embedding"] = get_gemini_embedding(doc["text"])
 # print(doc["embedding"])
 
+for doc in chunked_documents:
+    print("==== Inserting chunks into db;;; ====")
+    collection.upsert(
+        ids=[doc["id"]], documents=[doc["text"]], embeddings=[doc["embedding"]]
+    )
+    
+def query_documents(question, n_results=2):
+    # query_embedding = get_openai_embedding(question)
+    results = collection.query(query_texts=question, n_results=n_results)
+
+    # Extract the relevant chunks
+    relevant_chunks = [doc for sublist in results["documents"] for doc in sublist]
+    print("==== Returning relevant chunks ====")
+    return relevant_chunks
+    # for idx, document in enumerate(results["documents"][0]):
+    #     doc_id = results["ids"][0][idx]
+    #     distance = results["distances"][0][idx]
+    #     print(f"Found document chunk: {document} (ID: {doc_id}, Distance: {distance})")
+    
+    
+def generate_response(question, relevant_chunks):
+    context = "\n\n".join(relevant_chunks)
+    contents = [
+    {
+        "role": "assistant",
+        "parts": [
+            {"text": "You are an assistant for question-answering tasks. Use the following pieces of "
+            "retrieved context to answer the question. If you don't know the answer, say that you "
+            "don't know. Use three sentences maximum and keep the answer concise."
+            "\n\nContext:\n" + context + "\n\nQuestion:\n" + question}
+        ]
+    },
+    {
+        "role": "user",
+        "parts": [
+            {"text": question}
+        ]
+    }
+    ]
+    response = model.generate_content(contents)
+
+    return response.text
+    
+# question = "tell me about AI replacing TV writers strike. Tell me the source of information you are providing."
+# Example query and response generation
+# question = "tell me about databricks"
+question = "What's going on with genshin impact voice actor?"
+relevant_chunks = query_documents(question)
+answer = generate_response(question, relevant_chunks)
+
+print(answer)
