@@ -1,4 +1,4 @@
-<!-- # Naive-RAG: Implementation of Different RAG Approaches 🧠📚
+# Naive-RAG: Implementation of Different RAG Approaches 🧠📚
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 ![Last Commit](https://img.shields.io/github/last-commit/Shoshinmai/Naive-RAG)
