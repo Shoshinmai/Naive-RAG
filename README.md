@@ -5,7 +5,7 @@
 
 A modular implementation of basic Retrieval-Augmented Generation (RAG) systems for educational purposes and experimentation.
 
-![RAG Architecture Diagram](https://via.placeholder.com/800x400.png?text=RAG+Architecture+Diagram)
+![RAG Architecture Diagram]([https://via.placeholder.com/800x400.png?text=RAG+Architecture+Diagram](https://media2.dev.to/dynamic/image/width=800%2Cheight=%2Cfit=scale-down%2Cgravity=auto%2Cformat=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Farticles%2F5t6w4exp24wz8tga26ul.png))
 
 ## Features ✨
 - **Document Ingestion Pipeline** 📥
